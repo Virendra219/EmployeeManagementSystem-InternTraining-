@@ -38,7 +38,7 @@ import java.util.Date;
  * @author Givantha Kalansuriya
  */
 @Entity
-@Table(name = "users")
+@Table(name = "Users")
 @EntityListeners(AuditingEntityListener.class)
 public class User {
 
@@ -227,9 +227,7 @@ public class User {
                 ", createdAt=" + createdAt +
                 ", createdBy='" + createdBy + '\'' +
                 ", updatedAt=" + updatedAt +
-                ", updatedby='" + updatedBy + '\'' +
+                ", updatedBy='" + updatedBy + '\'' +
                 '}';
     }
-
-
 }

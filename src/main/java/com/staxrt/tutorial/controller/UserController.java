@@ -64,7 +64,7 @@ public class UserController {
    */
   @GetMapping("/users/{id}")
   public ResponseEntity<User> getUsersById(@PathVariable(value = "id") Long userId)
-      throws ResourceNotFoundException {
+          throws ResourceNotFoundException {
     User user =
         userRepository
             .findById(userId)
@@ -94,12 +94,11 @@ public class UserController {
   @PutMapping("/users/{id}")
   public ResponseEntity<User> updateUser(
       @PathVariable(value = "id") Long userId, @Valid @RequestBody User userDetails)
-      throws ResourceNotFoundException {
-
+          throws ResourceNotFoundException {
     User user =
-        userRepository
-            .findById(userId)
-            .orElseThrow(() -> new ResourceNotFoundException("User not found on :: " + userId));
+            userRepository
+                .findById(userId)
+                .orElseThrow(() -> new ResourceNotFoundException("User not found on :: " + userId));
 
     user.setEmail(userDetails.getEmail());
     user.setLastName(userDetails.getLastName());

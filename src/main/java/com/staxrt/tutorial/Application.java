@@ -8,7 +8,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  *
  * @author Givantha Kalansuriya
  */
-@SpringBootApplication
+@SpringBootApplication(scanBasePackages = "com.staxrt.tutorial.controller")
 public class Application {
 
   /**
