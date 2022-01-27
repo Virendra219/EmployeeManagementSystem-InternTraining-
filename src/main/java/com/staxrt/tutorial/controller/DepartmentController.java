@@ -3,6 +3,7 @@ package com.staxrt.tutorial.controller;
 import com.staxrt.tutorial.exception.ResourceNotFoundException;
 import com.staxrt.tutorial.model.Department;
 import com.staxrt.tutorial.repository.DepartmentRepository;
+import com.staxrt.tutorial.service.DepartmentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -12,62 +13,52 @@ import javax.validation.Valid;
 import java.util.*;
 
 @RestController
-@RequestMapping("/")
+@RequestMapping("/department")
 public class DepartmentController {
 
     @Autowired
-    private DepartmentRepository departmentRepository;
+    private DepartmentService departmentService;
 
     // Adding new department
-    @PostMapping("/department")
-    public Department addDepartment(@Valid @RequestBody Department newDepartment) {
-        return departmentRepository.save(newDepartment);
-    }
+    @PostMapping("/add")
+    public Department addDepartment(@Valid @RequestBody Department newDepartment) { return departmentService.addDepartment(newDepartment); }
 
     // Getting all departments
-    @GetMapping("/department")
-    public List<Department> getAllDepartments() { return departmentRepository.findAll(); }
+    @GetMapping("/display/all")
+    public List<Department> getAllDepartments() { return departmentService.getAllDepartment(); }
 
     // Getting department by Id
-    @GetMapping("/department/{deptId}")
-    public ResponseEntity<Department> getDepartmentById(@PathVariable(name = "deptId") Long deptId)
+    @GetMapping("/display")
+    public Department getDepartmentById(@RequestParam(name = "deptId") Long deptId)
             throws ResourceNotFoundException {
-        Department department =
-                departmentRepository
-                .findById(deptId)
-                .orElseThrow(()-> new ResourceNotFoundException("No department having Id = " + deptId));
-        return ResponseEntity.ok().body(department);
+        try {
+            return departmentService.getDepartmentById(deptId);
+        } catch (ResourceNotFoundException ex) {
+            throw ex;
+        }
     }
 
     // Update Department with given Id
-    @PutMapping("/department/{deptId}")
-    public ResponseEntity<Department> updateDepartment(
-            @PathVariable(name = "deptId") Long deptId,
+    @PutMapping("/update")
+    public Department updateDepartment(
+            @RequestParam(name = "deptId") Long deptId,
             @Valid @RequestBody Department newDetails)
             throws ResourceNotFoundException {
-        Department department =
-                departmentRepository
-                .findById(deptId)
-                .orElseThrow(()->new ResourceNotFoundException("No department with Id = " + deptId));
-
-        department.setDeptName(newDetails.getDeptName());
-        department.setNumberOfEmployees(newDetails.getNumberOfEmployees());
-        final Department updatedDept = departmentRepository.save(department);
-        return ResponseEntity.ok(updatedDept);
+        try {
+            return departmentService.updateDepartment(deptId, newDetails);
+        } catch (ResourceNotFoundException ex) {
+            throw ex;
+        }
     }
 
     // Delete department having given Id
     @DeleteMapping("/department/{deptId}")
     public Map<String, Boolean> deleteDepartment(@PathVariable(name = "deptId") Long deptId)
             throws ResourceNotFoundException {
-        Department department =
-                departmentRepository
-                .findById(deptId)
-                .orElseThrow(()-> new ResourceNotFoundException("No departmenet with id = " + deptId));
-
-        departmentRepository.delete(department);
-        Map<String, Boolean> response = new HashMap<>();
-        response.put("deleted", Boolean.TRUE);
-        return response;
+        try {
+            return departmentService.deleteDepartment(deptId);
+        } catch (ResourceNotFoundException ex) {
+            throw ex;
+        }
     }
 }

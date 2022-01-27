@@ -18,8 +18,11 @@ public class Employee {
     @Column(name = "last_name", nullable = false)
     private String lastName;
 
-    @Column(name = "dept", nullable = false)
+    @Column(name = "dept_Name", nullable = false)
     private String deptName;
+
+    @Column(name = "salary", nullable = false)
+    private long salary;
 
     @Column(name = "email_id", nullable = false)
     private String emailId;
@@ -49,6 +52,10 @@ public class Employee {
 
     public void setDeptName(String deptName) { this.deptName = deptName; }
 
+    public long getSalary() { return salary; }
+
+    public void setSalary(long salary) { this.salary = salary; }
+
     public String getEmailId() { return emailId; }
 
     public void setEmailId(String emailId) { this.emailId = emailId; }
@@ -65,6 +72,20 @@ public class Employee {
 
     public void setDateOfJoining(Date dateOfJoining) { this.dateOfJoining = dateOfJoining; }
 
+    public Employee() { }
+
+    public Employee(long empId, String firstName, String lastName, String deptName, long salary, String emailId, String address, long phone, Date dateOfJoining) {
+        this.empId = empId;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.deptName = deptName;
+        this.salary = salary;
+        this.emailId = emailId;
+        this.address = address;
+        this.phone = phone;
+        this.dateOfJoining = dateOfJoining;
+    }
+
     @Override
     public String toString() {
         return "Employee{" +
@@ -72,6 +93,7 @@ public class Employee {
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", department='" + deptName + '\'' +
+                ", salary=" + salary +
                 ", email='" + emailId + '\'' +
                 ", address='" + address + '\'' +
                 ", Phone=" + phone +

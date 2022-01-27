@@ -1,6 +1,7 @@
 package com.staxrt.tutorial;
 
 import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 /**
@@ -8,7 +9,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  *
  * @author Givantha Kalansuriya
  */
-@SpringBootApplication(scanBasePackages = "com.staxrt.tutorial.controller")
+
+@SpringBootApplication
 public class Application {
 
   /**
