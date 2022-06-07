@@ -18,7 +18,10 @@ public class EmployeeService {
     public EmployeeService(EmployeeRepository employeeRepository) { this.employeeRepository = employeeRepository; }
 
     // method to add new employee
-    public Employee addEmployee(Employee newEmployee) { return employeeRepository.save(newEmployee); }
+    public long addEmployee(Employee newEmployee) {
+        employeeRepository.save(newEmployee);
+        return newEmployee.getEmpId();
+    }
 
     // method to return all employees details
     public List<Employee> getAllEmployees() {
@@ -72,7 +75,7 @@ public class EmployeeService {
         {
             Long id = Long.parseLong(record[0].toString());
             System.out.println(id);
-            Employee employee = new Employee(Long.parseLong(record[0].toString()),
+            Employee employee = new Employee(
                     record[1].toString(),
                     record[2].toString(),
                     record[3].toString(),
@@ -108,7 +111,7 @@ public class EmployeeService {
         List<Employee> output = new ArrayList<>();
         for (Object[] record:records)
         {
-            Employee employee = new Employee(Long.parseLong(record[0].toString()),
+            Employee employee = new Employee(
                     record[1].toString(),
                     record[2].toString(),
                     record[3].toString(),

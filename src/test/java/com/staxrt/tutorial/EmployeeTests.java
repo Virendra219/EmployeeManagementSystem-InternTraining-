@@ -31,7 +31,7 @@ public class EmployeeTests {
 
     @Test
     public void testAddEmployee() {
-        Employee employee = new Employee(Long.valueOf(100),
+        Employee employee = new Employee(
                 "admin",
                 "admin",
                 "admin",

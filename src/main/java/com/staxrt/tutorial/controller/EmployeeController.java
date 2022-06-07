@@ -22,7 +22,7 @@ public class EmployeeController {
 
     // Add employee
     @PostMapping("/add")
-    public Employee addEmployee(@Valid @RequestBody Employee newEmployee) {
+    public long addEmployee(@Valid @RequestBody Employee newEmployee) {
         return employeeService.addEmployee(newEmployee);
     }
 
@@ -33,7 +33,7 @@ public class EmployeeController {
     }
 
     //Getting user by id
-    @GetMapping("/display")
+    @GetMapping("/display{empId}")
     public Employee getEmployeeById(@RequestParam(name = "empId") Long empId)
         throws ResourceNotFoundException {
         try {
@@ -57,7 +57,7 @@ public class EmployeeController {
     }
 
     // Delete employee with given id
-    @DeleteMapping("/delete{empId}")
+    @DeleteMapping("/delete")
     public Map<String, Boolean> deleteEmployee(@RequestParam(name = "empId") Long empId)
         throws ResourceNotFoundException {
         try {
